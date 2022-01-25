@@ -1,3 +1,14 @@
+function GlobalStyle() {
+    return(
+        <style global jsx>{`
+            *{
+                background: linear-gradient(to right, #240b36, #c31432);
+            }
+            `}
+        </style>
+    )
+}
+
 function Titulo(props) {
     console.log(props);
     const Tag = props.tag;
@@ -19,11 +30,14 @@ function Titulo(props) {
 //Componente React
 function HomePage() {
     //JSX
-    return (<div>
-        <Titulo tag="h2"> Boas vindas de volta! </Titulo>
-        <h2 > Discord - Alura Matrix </h2>
+    return (
+        <div>
 
-    </div>
+            <GlobalStyle/>
+            <Titulo tag="h2"> Boas vindas de volta! </Titulo>
+            <h2 > Discord - Alura Matrix </h2>
+
+        </div>
     )
 }
 
