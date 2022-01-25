@@ -1,9 +1,16 @@
+function Titulo(props) {
+    console.log(props);
+    return (
+        <h1> props.children</h1>
+    )
+}
+
 //Componente React
 function HomePage() {
     //JSX
     return (
         <div>
-            <h1>Boas vindas de volta!</h1>
+            <Titulo>Boas vindas de volta!</Titulo>
             <h2>Discord - Alura Matrix</h2>
             <style jsx>{`
                 h1 {
