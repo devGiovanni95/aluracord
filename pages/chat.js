@@ -3,7 +3,20 @@ import React from 'react';
 import appConfig from '../config.json';
 
 export default function ChatPage() {
+    const [mensagem, setMensagem] = React.useState('');
+
     // Sua lógica vai aqui
+    //Usuário 
+    /*
+    -Usuário digita no campo textArea
+    -Aperta enter para enviar
+    -Tem que adicionar o texto na listagem
+
+    //Dev
+    - [x] Campo criado
+    - [ ] Vamos uasr o onChange usa o useState(ter if para caso seje enter pra limpar a variavel)
+    - [ ] Listar mensagens
+    */
 
     // ./Sua lógica vai aqui
     return (
@@ -43,8 +56,8 @@ export default function ChatPage() {
                         padding: '16px',
                     }}
                 >
-
-                    <MessageList/>
+                    {/* Ta mudando o valor:{mensagem} */}
+                    <MessageList />
 
                     <Box
                         as="form"
@@ -54,6 +67,21 @@ export default function ChatPage() {
                         }}
                     >
                         <TextField
+
+                            value={mensagem}
+                            onChange={(event) => {
+                                console.log(event)
+                                const valor = event.target.value;
+                                setMensagem(valor);
+                            }}
+                            //pegando o botao que apertamos no teclado
+                            onKeyPress={(event) => {
+                                if (event.key === 'Enter') {
+                                    console.log(event);
+                                    setMensagem('');
+                                }
+                            }}
+
                             placeholder="Insira sua mensagem aqui..."
                             type="textarea"
                             styleSheet={{
