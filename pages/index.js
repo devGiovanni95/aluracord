@@ -116,6 +116,15 @@ function Titulo(props) {
                 const valor = event.target.value;
                 //trocar o valor da variavel
                 setUsername(valor);
+
+              //  var habilitado = false;
+              //  if (valor.length < 3) {
+              //    disabled = false
+              //   }  else{
+              //     disabled = true
+              //   }
+                
+  
               }}
               fullWidth
               textFieldColors={{
@@ -128,11 +137,12 @@ function Titulo(props) {
               }}
             />
 
-
-
+              
             <Button
               type='submit'
               label='Entrar'
+              // disabled={'habilitado'}       
+
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals["000"],
