@@ -15,11 +15,20 @@ export default function ChatPage() {
 
     //Dev
     - [x] Campo criado
-    - [+/-] Vamos uasr o onChange usa o useState(ter if para caso seje enter pra limpar a variavel)
+    - [x] Vamos uasr o onChange usa o useState(ter if para caso seje enter pra limpar a variavel)
     - [ ] Listar mensagens
     */
 
     // ./Sua lógica vai aqui
+
+    function handleNovaMensagem(novaMensagem) {
+        setListaDeMensagens([
+            ...listaDeMensagens,
+            novaMensagem
+        ]);
+        setMensagem('');
+    }
+
     return (
         <Box
             styleSheet={{
@@ -60,7 +69,7 @@ export default function ChatPage() {
                     <MessageList />
                     {listaDeMensagens.map((mensagemAtual) => {
                         console.log(mensagemAtual)
-                        return(
+                        return (
                             <li>
                                 {mensagemAtual}
                             </li>
@@ -85,16 +94,12 @@ export default function ChatPage() {
                             //pegando o botao que apertamos no teclado
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
+                                    // para ele nao pular linha automaticamente e deixar a mensagem padrão de "insira sua mensagem aqui"
+                                    event.preventDefault();
                                     console.log(event);
 
-                                    // criando uma array de lista mensagem,
-                                    //passando os paramentros que ele tem e os "..."
-                                    //serve para ele espalhar todo o conteudo criado impedindo que ele crie arrays dentro de arrays
-                                    setListaDeMensagens([
-                                        ...listaDeMensagens,
-                                        mensagem
-                                    ])
-                                    setMensagem('');
+                                    handleNovaMensagem(mensagem);
+
                                 }
                             }}
 
