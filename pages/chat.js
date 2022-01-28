@@ -4,6 +4,7 @@ import appConfig from '../config.json';
 
 export default function ChatPage() {
     const [mensagem, setMensagem] = React.useState('');
+    const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
     // Sua lógica vai aqui
     //Usuário 
@@ -14,7 +15,7 @@ export default function ChatPage() {
 
     //Dev
     - [x] Campo criado
-    - [ ] Vamos uasr o onChange usa o useState(ter if para caso seje enter pra limpar a variavel)
+    - [+/-] Vamos uasr o onChange usa o useState(ter if para caso seje enter pra limpar a variavel)
     - [ ] Listar mensagens
     */
 
@@ -56,8 +57,15 @@ export default function ChatPage() {
                         padding: '16px',
                     }}
                 >
-                    {/* Ta mudando o valor:{mensagem} */}
                     <MessageList />
+                    {listaDeMensagens.map((mensagemAtual) => {
+                        console.log(mensagemAtual)
+                        return(
+                            <li>
+                                {mensagemAtual}
+                            </li>
+                        )
+                    })}
 
                     <Box
                         as="form"
@@ -78,6 +86,14 @@ export default function ChatPage() {
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
                                     console.log(event);
+
+                                    // criando uma array de lista mensagem,
+                                    //passando os paramentros que ele tem e os "..."
+                                    //serve para ele espalhar todo o conteudo criado impedindo que ele crie arrays dentro de arrays
+                                    setListaDeMensagens([
+                                        ...listaDeMensagens,
+                                        mensagem
+                                    ])
                                     setMensagem('');
                                 }
                             }}
