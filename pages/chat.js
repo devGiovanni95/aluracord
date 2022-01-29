@@ -7,40 +7,6 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://aphwwcfcjrxxnmhczfmk.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-//Outra maneira de fazer a requisiçao
-
-// fetch(`${SUPABASE_URL}/rest/v1/mensagens?select=*`,{
-//     headers: {
-//         'Content-Type':'application/json',
-//         'apikey': SUPABASE_ANON_KEY,
-//         'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-//     }
-// })
-//     .then((res) => {
-//     return res.json();
-// })
-//     .then((response) => {
-//     console.log(response);
-// });
-
-
-
-
-// const dadosDoSupabase = supabaseClient
-//     .from('mensagens')
-//     .select('*');
-
-// console.log(dadosDoSupabase)
-
-
-supabaseClient
-    .from('mensagens')
-    .select('*')
-    .then((dados)=> {
-        console.log('Dados da Consulta: ',dados)
-
-    })
-
 
 export default function ChatPage() {
     const [mensagem, setMensagem] = React.useState('');
@@ -61,17 +27,70 @@ export default function ChatPage() {
 
     // ./Sua lógica vai aqui
 
+
+
+    // React.useEffect(() => {
+
+    //    supabaseClient
+    //         .from('mensagens')
+    //         .select('*')
+    //         .then((dados)=> {
+    //     console.log('Dados da Consulta: ',dados)
+    //     setListaDeMensagens(dados.data);
+    // });
+    // }, [listaDeMensagens]);
+
+
+       React.useEffect(() => {
+
+       supabaseClient
+            .from('mensagens')
+            .select('*')
+            .order('id', { ascending: false})
+            .then(({ data })=> {
+        console.log('Dados da Consulta: ',data);
+        setListaDeMensagens(data)
+    });
+    }, [listaDeMensagens]);
+
+
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            id: listaDeMensagens.length + 1,
+            // id: listaDeMensagens.length + 1,
             de: 'devGiovanni95',
             texto: novaMensagem,
         };
+
+          supabaseClient
+            .from('mensagens')
+            .insert([
+                //Tem que ser um objeto com os mesmos campos que voce escreveu no supabase
+                mensagem
+            ])
+            .then(({ data })=> {
+                console.log('Criando mensagem: ',data);
+                setListaDeMensagens([
+                    data[0],
+                    ...listaDeMensagens,
+                ])
+            });
+
+        // supabaseClient
+        //     .from('mensagens')
+        //     .insert([
+        //         //Tem que ser um objeto com os mesmos campos que voce escreveu no supabase
+        //         mensagem
+        //     ])
+        //     .then((oQueVemDeResposta)=> {
+        //         console.log('Criando mensagem: ',oQueVemDeResposta);
+        //     });
+
+
         //CHAMADA DE UM BACKEND
-        setListaDeMensagens([
-            mensagem,
-            ...listaDeMensagens,
-        ]);
+        // setListaDeMensagens([
+        //     mensagem,
+        //     ...listaDeMensagens,
+        // ]);
         setMensagem('');
     }
 
