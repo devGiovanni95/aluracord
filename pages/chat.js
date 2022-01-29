@@ -1,6 +1,46 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import{ createClient} from '@supabase/supabase-js'
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzQxNjk0OSwiZXhwIjoxOTU4OTkyOTQ5fQ.26PzmksE_t4ybxWnh1S5SN8Buocomy4zK5fhlow2cUI';
+const SUPABASE_URL = 'https://aphwwcfcjrxxnmhczfmk.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+//Outra maneira de fazer a requisiçao
+
+// fetch(`${SUPABASE_URL}/rest/v1/mensagens?select=*`,{
+//     headers: {
+//         'Content-Type':'application/json',
+//         'apikey': SUPABASE_ANON_KEY,
+//         'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+//     }
+// })
+//     .then((res) => {
+//     return res.json();
+// })
+//     .then((response) => {
+//     console.log(response);
+// });
+
+
+
+
+// const dadosDoSupabase = supabaseClient
+//     .from('mensagens')
+//     .select('*');
+
+// console.log(dadosDoSupabase)
+
+
+supabaseClient
+    .from('mensagens')
+    .select('*')
+    .then((dados)=> {
+        console.log('Dados da Consulta: ',dados)
+
+    })
+
 
 export default function ChatPage() {
     const [mensagem, setMensagem] = React.useState('');
