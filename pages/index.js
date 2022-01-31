@@ -82,7 +82,14 @@ function Titulo(props) {
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault();
               console.log('Alguém submeteu o form');
-              roteamento.push('/chat'); //fazendo o redirecionamento de rota entre pegina
+              // roteamento.push('/chat'); //fazendo o redirecionamento de rota entre pagina
+
+              //modo de fazer usando aspas simples
+              // roteamento.push('/chat?username=' + username); 
+
+              //fazendo o redirecionamento de rota entre pagina e passandoi como paramentro na url o username correspondente ao que fez login
+              roteamento.push(`/chat?username=${username}`); 
+
 
               // window.location.href = '/chat'     maneira de mudar de pagina
             }}
