@@ -3,6 +3,7 @@ import React from 'react';
 import appConfig from '../config.json';
 import{ createClient} from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
+import {ButtonSendSticker} from '../src/components/ButtonSendSticker';
 
 
 //Como fazer AJAX
@@ -19,7 +20,20 @@ export default function ChatPage() {
 
 
     const [mensagem, setMensagem] = React.useState('');
-    const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
+    const [listaDeMensagens, setListaDeMensagens] = React.useState([
+
+        {
+            id: 1,
+            de: 'devGiovanni95',
+            texto: ':sticker: https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_1.png'
+        },  
+         {
+            id: 2,
+            de: 'peas',
+            texto: 'Ternario e complicado'
+        }
+
+    ]);
 
     // Sua lógica vai aqui
     //Usuário 
@@ -58,7 +72,7 @@ export default function ChatPage() {
             .order('id', { ascending: false})
             .then(({ data })=> {
         console.log('Dados da Consulta: ',data);
-        setListaDeMensagens(data)
+        // setListaDeMensagens(data)
     });
     }, [listaDeMensagens]);
 
@@ -184,6 +198,7 @@ export default function ChatPage() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
+                        <ButtonSendSticker/>
                     </Box>
                 </Box>
             </Box>
@@ -269,7 +284,18 @@ function MessageList(props) {
                                 {(new Date().toLocaleDateString())}
                             </Text>
                         </Box>
-                        {mensagem.texto}
+
+                        {/* declarativo */}
+                        Condicional: {mensagem.texto.startsWith(':sticker:').toString()}
+                        {mensagem.texto.startsWith(':sticker:')
+                            ? (
+                                'É sticker'
+                            )
+                            : (
+                                mensagem.texto
+                            )}
+
+
                         {/* Mensagem teste */}
                     </Text>
                 )
