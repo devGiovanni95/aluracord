@@ -41,7 +41,7 @@ function Titulo(props) {
   // const username = 'devGiovanni95';
   // const stateDoReact = React.useState('omariosouto');
   // console.log('stateDoReact',stateDoReact);
-  const [username, setUsername] = React.useState('omariosouto');
+  const [username, setUsername] = React.useState('devGiovanni95');
   const roteamento = useRouter();
 
   // console.log(roteamento);
